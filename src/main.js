@@ -1,4 +1,5 @@
 //package
+import * as rxjs from 'rxjs'
 import {
     fromEvent,
     interval,
@@ -15,13 +16,13 @@ import {
     startWith,
     share,
     withLatestFrom,
-    takeWhile
+    takeWhile,
 } from 'rxjs/operators'
 
 //vars
 const COLS = 30;
 const ROWS = 30;
-const CELL_SIZE = 10;
+const CELL_SIZE = 15;
 const CANVAS_WIDTH = COLS * CELL_SIZE;
 const CANVAS_HEIGHT = ROWS * CELL_SIZE;
 const SPEED = 60;
@@ -31,7 +32,6 @@ function createCanvas() {
     const canvas = document.createElement('canvas');
     canvas.height = CANVAS_HEIGHT;
     canvas.width = CANVAS_WIDTH;
-    canvas.style.border = '1px dashed'
     return canvas;
 }
 
@@ -178,26 +178,48 @@ const renderScene = (() => {
         ctx.restore();
     }
     const renderScore = score => {
+        ctx.save();
+        ctx.fillStyle = "#fff";
+        ctx.font = "20px serif";
+        ctx.textAlign = 'center'
         ctx.fillText(`score:${score}`, COLS / 2 * CELL_SIZE, ROWS / 2 * CELL_SIZE);
+        ctx.restore();
     }
+
+    function renderBackground(ctx) {
+        ctx.save();
+        let pattern = ctx.createLinearGradient(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+        pattern.addColorStop('0','red')
+        pattern.addColorStop('1','blue')
+        ctx.fillStyle = pattern;
+        ctx.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT)
+        ctx.restore();
+
+    }
+
     return (ctx, [snake, apple, score]) => {
         ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-        renderSnake(snake, ctx)
+        renderBackground(ctx);
         renderApple(apple, ctx)
         renderScore(score, ctx)
+        renderSnake(snake, ctx)
     }
 })()
 
-function renderGameOver(ctx) {
+function renderGameOver(ctx, ...xs) {
+    ctx.textAlign = 'center'
+    ctx.font = "40px serif";
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    ctx.fillText(`it's done`, COLS / 2 * CELL_SIZE, ROWS / 2 * CELL_SIZE);
+    ctx.fillText(`game over`, COLS / 2 * CELL_SIZE, ROWS / 2 * CELL_SIZE);
 }
+
 
 function isGameOver([
     [head, ...tail], applePosition, score
 ]) {
     return tail.some(item => eqCELL(item, head))
 }
+
 
 const scene$ = combineLatest(snake$, apples$, score$)
 const game$ = time$
@@ -207,5 +229,5 @@ const game$ = time$
     )
     .subscribe({
         next: scene => renderScene(ctx, scene),
-        complete: () => renderGameOver(ctx)
+        complete: scene => renderGameOver(ctx, scene)
     })

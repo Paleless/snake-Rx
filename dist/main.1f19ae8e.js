@@ -15030,9 +15030,11 @@ var _zipAll = require("../internal/operators/zipAll");
 },{"../internal/operators/audit":"../node_modules/rxjs/_esm5/internal/operators/audit.js","../internal/operators/auditTime":"../node_modules/rxjs/_esm5/internal/operators/auditTime.js","../internal/operators/buffer":"../node_modules/rxjs/_esm5/internal/operators/buffer.js","../internal/operators/bufferCount":"../node_modules/rxjs/_esm5/internal/operators/bufferCount.js","../internal/operators/bufferTime":"../node_modules/rxjs/_esm5/internal/operators/bufferTime.js","../internal/operators/bufferToggle":"../node_modules/rxjs/_esm5/internal/operators/bufferToggle.js","../internal/operators/bufferWhen":"../node_modules/rxjs/_esm5/internal/operators/bufferWhen.js","../internal/operators/catchError":"../node_modules/rxjs/_esm5/internal/operators/catchError.js","../internal/operators/combineAll":"../node_modules/rxjs/_esm5/internal/operators/combineAll.js","../internal/operators/combineLatest":"../node_modules/rxjs/_esm5/internal/operators/combineLatest.js","../internal/operators/concat":"../node_modules/rxjs/_esm5/internal/operators/concat.js","../internal/operators/concatAll":"../node_modules/rxjs/_esm5/internal/operators/concatAll.js","../internal/operators/concatMap":"../node_modules/rxjs/_esm5/internal/operators/concatMap.js","../internal/operators/concatMapTo":"../node_modules/rxjs/_esm5/internal/operators/concatMapTo.js","../internal/operators/count":"../node_modules/rxjs/_esm5/internal/operators/count.js","../internal/operators/debounce":"../node_modules/rxjs/_esm5/internal/operators/debounce.js","../internal/operators/debounceTime":"../node_modules/rxjs/_esm5/internal/operators/debounceTime.js","../internal/operators/defaultIfEmpty":"../node_modules/rxjs/_esm5/internal/operators/defaultIfEmpty.js","../internal/operators/delay":"../node_modules/rxjs/_esm5/internal/operators/delay.js","../internal/operators/delayWhen":"../node_modules/rxjs/_esm5/internal/operators/delayWhen.js","../internal/operators/dematerialize":"../node_modules/rxjs/_esm5/internal/operators/dematerialize.js","../internal/operators/distinct":"../node_modules/rxjs/_esm5/internal/operators/distinct.js","../internal/operators/distinctUntilChanged":"../node_modules/rxjs/_esm5/internal/operators/distinctUntilChanged.js","../internal/operators/distinctUntilKeyChanged":"../node_modules/rxjs/_esm5/internal/operators/distinctUntilKeyChanged.js","../internal/operators/elementAt":"../node_modules/rxjs/_esm5/internal/operators/elementAt.js","../internal/operators/endWith":"../node_modules/rxjs/_esm5/internal/operators/endWith.js","../internal/operators/every":"../node_modules/rxjs/_esm5/internal/operators/every.js","../internal/operators/exhaust":"../node_modules/rxjs/_esm5/internal/operators/exhaust.js","../internal/operators/exhaustMap":"../node_modules/rxjs/_esm5/internal/operators/exhaustMap.js","../internal/operators/expand":"../node_modules/rxjs/_esm5/internal/operators/expand.js","../internal/operators/filter":"../node_modules/rxjs/_esm5/internal/operators/filter.js","../internal/operators/finalize":"../node_modules/rxjs/_esm5/internal/operators/finalize.js","../internal/operators/find":"../node_modules/rxjs/_esm5/internal/operators/find.js","../internal/operators/findIndex":"../node_modules/rxjs/_esm5/internal/operators/findIndex.js","../internal/operators/first":"../node_modules/rxjs/_esm5/internal/operators/first.js","../internal/operators/groupBy":"../node_modules/rxjs/_esm5/internal/operators/groupBy.js","../internal/operators/ignoreElements":"../node_modules/rxjs/_esm5/internal/operators/ignoreElements.js","../internal/operators/isEmpty":"../node_modules/rxjs/_esm5/internal/operators/isEmpty.js","../internal/operators/last":"../node_modules/rxjs/_esm5/internal/operators/last.js","../internal/operators/map":"../node_modules/rxjs/_esm5/internal/operators/map.js","../internal/operators/mapTo":"../node_modules/rxjs/_esm5/internal/operators/mapTo.js","../internal/operators/materialize":"../node_modules/rxjs/_esm5/internal/operators/materialize.js","../internal/operators/max":"../node_modules/rxjs/_esm5/internal/operators/max.js","../internal/operators/merge":"../node_modules/rxjs/_esm5/internal/operators/merge.js","../internal/operators/mergeAll":"../node_modules/rxjs/_esm5/internal/operators/mergeAll.js","../internal/operators/mergeMap":"../node_modules/rxjs/_esm5/internal/operators/mergeMap.js","../internal/operators/mergeMapTo":"../node_modules/rxjs/_esm5/internal/operators/mergeMapTo.js","../internal/operators/mergeScan":"../node_modules/rxjs/_esm5/internal/operators/mergeScan.js","../internal/operators/min":"../node_modules/rxjs/_esm5/internal/operators/min.js","../internal/operators/multicast":"../node_modules/rxjs/_esm5/internal/operators/multicast.js","../internal/operators/observeOn":"../node_modules/rxjs/_esm5/internal/operators/observeOn.js","../internal/operators/onErrorResumeNext":"../node_modules/rxjs/_esm5/internal/operators/onErrorResumeNext.js","../internal/operators/pairwise":"../node_modules/rxjs/_esm5/internal/operators/pairwise.js","../internal/operators/partition":"../node_modules/rxjs/_esm5/internal/operators/partition.js","../internal/operators/pluck":"../node_modules/rxjs/_esm5/internal/operators/pluck.js","../internal/operators/publish":"../node_modules/rxjs/_esm5/internal/operators/publish.js","../internal/operators/publishBehavior":"../node_modules/rxjs/_esm5/internal/operators/publishBehavior.js","../internal/operators/publishLast":"../node_modules/rxjs/_esm5/internal/operators/publishLast.js","../internal/operators/publishReplay":"../node_modules/rxjs/_esm5/internal/operators/publishReplay.js","../internal/operators/race":"../node_modules/rxjs/_esm5/internal/operators/race.js","../internal/operators/reduce":"../node_modules/rxjs/_esm5/internal/operators/reduce.js","../internal/operators/repeat":"../node_modules/rxjs/_esm5/internal/operators/repeat.js","../internal/operators/repeatWhen":"../node_modules/rxjs/_esm5/internal/operators/repeatWhen.js","../internal/operators/retry":"../node_modules/rxjs/_esm5/internal/operators/retry.js","../internal/operators/retryWhen":"../node_modules/rxjs/_esm5/internal/operators/retryWhen.js","../internal/operators/refCount":"../node_modules/rxjs/_esm5/internal/operators/refCount.js","../internal/operators/sample":"../node_modules/rxjs/_esm5/internal/operators/sample.js","../internal/operators/sampleTime":"../node_modules/rxjs/_esm5/internal/operators/sampleTime.js","../internal/operators/scan":"../node_modules/rxjs/_esm5/internal/operators/scan.js","../internal/operators/sequenceEqual":"../node_modules/rxjs/_esm5/internal/operators/sequenceEqual.js","../internal/operators/share":"../node_modules/rxjs/_esm5/internal/operators/share.js","../internal/operators/shareReplay":"../node_modules/rxjs/_esm5/internal/operators/shareReplay.js","../internal/operators/single":"../node_modules/rxjs/_esm5/internal/operators/single.js","../internal/operators/skip":"../node_modules/rxjs/_esm5/internal/operators/skip.js","../internal/operators/skipLast":"../node_modules/rxjs/_esm5/internal/operators/skipLast.js","../internal/operators/skipUntil":"../node_modules/rxjs/_esm5/internal/operators/skipUntil.js","../internal/operators/skipWhile":"../node_modules/rxjs/_esm5/internal/operators/skipWhile.js","../internal/operators/startWith":"../node_modules/rxjs/_esm5/internal/operators/startWith.js","../internal/operators/subscribeOn":"../node_modules/rxjs/_esm5/internal/operators/subscribeOn.js","../internal/operators/switchAll":"../node_modules/rxjs/_esm5/internal/operators/switchAll.js","../internal/operators/switchMap":"../node_modules/rxjs/_esm5/internal/operators/switchMap.js","../internal/operators/switchMapTo":"../node_modules/rxjs/_esm5/internal/operators/switchMapTo.js","../internal/operators/take":"../node_modules/rxjs/_esm5/internal/operators/take.js","../internal/operators/takeLast":"../node_modules/rxjs/_esm5/internal/operators/takeLast.js","../internal/operators/takeUntil":"../node_modules/rxjs/_esm5/internal/operators/takeUntil.js","../internal/operators/takeWhile":"../node_modules/rxjs/_esm5/internal/operators/takeWhile.js","../internal/operators/tap":"../node_modules/rxjs/_esm5/internal/operators/tap.js","../internal/operators/throttle":"../node_modules/rxjs/_esm5/internal/operators/throttle.js","../internal/operators/throttleTime":"../node_modules/rxjs/_esm5/internal/operators/throttleTime.js","../internal/operators/throwIfEmpty":"../node_modules/rxjs/_esm5/internal/operators/throwIfEmpty.js","../internal/operators/timeInterval":"../node_modules/rxjs/_esm5/internal/operators/timeInterval.js","../internal/operators/timeout":"../node_modules/rxjs/_esm5/internal/operators/timeout.js","../internal/operators/timeoutWith":"../node_modules/rxjs/_esm5/internal/operators/timeoutWith.js","../internal/operators/timestamp":"../node_modules/rxjs/_esm5/internal/operators/timestamp.js","../internal/operators/toArray":"../node_modules/rxjs/_esm5/internal/operators/toArray.js","../internal/operators/window":"../node_modules/rxjs/_esm5/internal/operators/window.js","../internal/operators/windowCount":"../node_modules/rxjs/_esm5/internal/operators/windowCount.js","../internal/operators/windowTime":"../node_modules/rxjs/_esm5/internal/operators/windowTime.js","../internal/operators/windowToggle":"../node_modules/rxjs/_esm5/internal/operators/windowToggle.js","../internal/operators/windowWhen":"../node_modules/rxjs/_esm5/internal/operators/windowWhen.js","../internal/operators/withLatestFrom":"../node_modules/rxjs/_esm5/internal/operators/withLatestFrom.js","../internal/operators/zip":"../node_modules/rxjs/_esm5/internal/operators/zip.js","../internal/operators/zipAll":"../node_modules/rxjs/_esm5/internal/operators/zipAll.js"}],"main.js":[function(require,module,exports) {
 "use strict";
 
-var _rxjs = require("rxjs");
+var rxjs = _interopRequireWildcard(require("rxjs"));
 
 var _operators = require("rxjs/operators");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _toArray(arr) { return _arrayWithHoles(arr) || _iterableToArray(arr) || _nonIterableRest(); }
 
@@ -15055,7 +15057,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //vars
 var COLS = 30;
 var ROWS = 30;
-var CELL_SIZE = 10;
+var CELL_SIZE = 15;
 var CANVAS_WIDTH = COLS * CELL_SIZE;
 var CANVAS_HEIGHT = ROWS * CELL_SIZE;
 var SPEED = 60; //dirty
@@ -15064,7 +15066,6 @@ function createCanvas() {
   var canvas = document.createElement('canvas');
   canvas.height = CANVAS_HEIGHT;
   canvas.width = CANVAS_WIDTH;
-  canvas.style.border = '1px dashed';
   return canvas;
 }
 
@@ -15073,8 +15074,8 @@ var ctx = canvas.getContext('2d'); //dirty
 
 document.getElementById('app').appendChild(canvas); //root stream
 
-var keydown$ = (0, _rxjs.fromEvent)(document, 'keydown');
-var time$ = (0, _rxjs.interval)(SPEED); //keydown$ -> direction$
+var keydown$ = (0, rxjs.fromEvent)(document, 'keydown');
+var time$ = (0, rxjs.interval)(SPEED); //keydown$ -> direction$
 
 var DIRECTIONS = {
   ArrowUp: {
@@ -15109,7 +15110,7 @@ var direction$ = keydown$.pipe((0, _operators.map)(function (_ref) {
 }), (0, _operators.scan)(isContrast), (0, _operators.distinctUntilChanged)(), (0, _operators.startWith)(INITIAL_DIRECTION)); //length$ -> snakeLength$ -> $score
 
 var INITIAL_LENGTH = 3;
-var length$ = new _rxjs.BehaviorSubject(INITIAL_LENGTH);
+var length$ = new rxjs.BehaviorSubject(INITIAL_LENGTH);
 var snakeLength$ = length$.pipe((0, _operators.scan)(function (step, snakeLength) {
   return step + snakeLength;
 }), (0, _operators.share)()); //score$
@@ -15225,8 +15226,23 @@ var renderScene = function () {
   };
 
   var renderScore = function renderScore(score) {
+    ctx.save();
+    ctx.fillStyle = "#fff";
+    ctx.font = "20px serif";
+    ctx.textAlign = 'center';
     ctx.fillText("score:".concat(score), COLS / 2 * CELL_SIZE, ROWS / 2 * CELL_SIZE);
+    ctx.restore();
   };
+
+  function renderBackground(ctx) {
+    ctx.save();
+    var pattern = ctx.createLinearGradient(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    pattern.addColorStop('0', 'red');
+    pattern.addColorStop('1', 'blue');
+    ctx.fillStyle = pattern;
+    ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    ctx.restore();
+  }
 
   return function (ctx, _ref9) {
     var _ref10 = _slicedToArray(_ref9, 3),
@@ -15235,15 +15251,18 @@ var renderScene = function () {
         score = _ref10[2];
 
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    renderSnake(snake, ctx);
+    renderBackground(ctx);
     renderApple(apple, ctx);
     renderScore(score, ctx);
+    renderSnake(snake, ctx);
   };
 }();
 
 function renderGameOver(ctx) {
+  ctx.textAlign = 'center';
+  ctx.font = "40px serif";
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  ctx.fillText("it's done", COLS / 2 * CELL_SIZE, ROWS / 2 * CELL_SIZE);
+  ctx.fillText("game over", COLS / 2 * CELL_SIZE, ROWS / 2 * CELL_SIZE);
 }
 
 function isGameOver(_ref11) {
@@ -15259,7 +15278,7 @@ function isGameOver(_ref11) {
   });
 }
 
-var scene$ = (0, _rxjs.combineLatest)(snake$, apples$, score$);
+var scene$ = (0, rxjs.combineLatest)(snake$, apples$, score$);
 var game$ = time$.pipe((0, _operators.withLatestFrom)(scene$, function (_, scene) {
   return scene;
 }), (0, _operators.takeWhile)(function (scene) {
@@ -15268,8 +15287,8 @@ var game$ = time$.pipe((0, _operators.withLatestFrom)(scene$, function (_, scene
   next: function next(scene) {
     return renderScene(ctx, scene);
   },
-  complete: function complete() {
-    return renderGameOver(ctx);
+  complete: function complete(scene) {
+    return renderGameOver(ctx, scene);
   }
 });
 },{"rxjs":"../node_modules/rxjs/_esm5/index.js","rxjs/operators":"../node_modules/rxjs/_esm5/operators/index.js"}],"../node_modules/_parcel@1.11.0@parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -15299,7 +15318,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63372" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50927" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
