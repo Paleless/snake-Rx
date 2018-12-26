@@ -15034,26 +15034,44 @@ var _rxjs = require("rxjs");
 
 var _operators = require("rxjs/operators");
 
-//package
+function _toArray(arr) { return _arrayWithHoles(arr) || _iterableToArray(arr) || _nonIterableRest(); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 //vars
 var COLS = 30;
 var ROWS = 30;
 var CELL_SIZE = 10;
 var CANVAS_WIDTH = COLS * CELL_SIZE;
 var CANVAS_HEIGHT = ROWS * CELL_SIZE;
-var SPEED = 1000; //dirty
+var SPEED = 60; //dirty
 
 function createCanvas() {
   var canvas = document.createElement('canvas');
   canvas.height = CANVAS_HEIGHT;
   canvas.width = CANVAS_WIDTH;
+  canvas.style.border = '1px dashed';
   return canvas;
 }
 
 var canvas = createCanvas();
 var ctx = canvas.getContext('2d'); //dirty
 
-document.getElementById('app').appendChild(canvas); //stream
+document.getElementById('app').appendChild(canvas); //root stream
 
 var keydown$ = (0, _rxjs.fromEvent)(document, 'keydown');
 var time$ = (0, _rxjs.interval)(SPEED); //keydown$ -> direction$
@@ -15080,12 +15098,7 @@ var INITIAL_DIRECTION = DIRECTIONS.ArrowRight;
 
 function isContrast(prev, next) {
   var contrasted = prev.x === next.x == 1 || prev.y === next.y == 1;
-
-  if (contrasted) {
-    return prev;
-  }
-
-  return next;
+  return contrasted ? prev : next;
 }
 
 var direction$ = keydown$.pipe((0, _operators.map)(function (_ref) {
@@ -15099,34 +15112,165 @@ var INITIAL_LENGTH = 3;
 var length$ = new _rxjs.BehaviorSubject(INITIAL_LENGTH);
 var snakeLength$ = length$.pipe((0, _operators.scan)(function (step, snakeLength) {
   return step + snakeLength;
-}), (0, _operators.share)());
+}), (0, _operators.share)()); //score$
+
 var score$ = snakeLength$.pipe((0, _operators.startWith)(0), (0, _operators.scan)(function (score) {
   return score + 1;
 })); //time$ -> snake$ -> apple$ -> appleEaten$
 
+function addCell(_ref2, _ref3) {
+  var x1 = _ref2.x,
+      y1 = _ref2.y;
+  var x2 = _ref3.x,
+      y2 = _ref3.y;
+  return {
+    x: x1 + x2,
+    y: y1 + y2
+  };
+} //snake$
+
+
+var move = function () {
+  var fixPosition = function fixPosition(_ref4) {
+    var x = _ref4.x,
+        y = _ref4.y;
+    x = x < 0 ? COLS + x : x > COLS ? COLS - x : x;
+    y = y < 0 ? ROWS + y : y > ROWS ? ROWS - y : y;
+    return {
+      x: x,
+      y: y
+    };
+  };
+
+  var generateBody = function generateBody(snakeLength) {
+    var resultL = new Array(snakeLength).fill(null).map(function (_, index) {
+      return {
+        x: index,
+        y: 0
+      };
+    }).reverse();
+    return resultL;
+  };
+
+  return function (body, _ref5) {
+    var _ref6 = _slicedToArray(_ref5, 2),
+        direction = _ref6[0],
+        snakeLength = _ref6[1];
+
+    if (body.length === 0) {
+      body = generateBody(snakeLength);
+    } else {
+      var oldHead = body[0];
+      var bodyLength = body.length;
+      var newHead = addCell(oldHead, direction);
+      var newBody = snakeLength > bodyLength ? body : body.slice(0, -1);
+      body = [newHead].concat(_toConsumableArray(newBody)).map(fixPosition);
+    }
+
+    return body;
+  };
+}();
+
 var snake$ = time$.pipe((0, _operators.withLatestFrom)(direction$, snakeLength$, function (_, direction, snakeLength) {
   return [direction, snakeLength];
-}), // scan(move, generateSnake),
-(0, _operators.share)());
-var apples$ = snake$.pipe( // scan(eat, generateApples),
-(0, _operators.distinctUntilChanged)(), (0, _operators.share)());
+}), (0, _operators.scan)(move, []), (0, _operators.share)()); //apples$
+
+var eqCELL = function eqCELL(x1, x2) {
+  return x1.x === x2.x && x1.y === x2.y;
+};
+
+var eat = function () {
+  var generateRandomCELL = function generateRandomCELL() {
+    var randomX = Math.floor(Math.random() * COLS);
+    var randomY = Math.floor(Math.random() * ROWS);
+    return {
+      x: randomX,
+      y: randomY
+    };
+  };
+
+  return function (applePosition, body) {
+    if (!applePosition || body.some(function (item) {
+      return eqCELL(item, applePosition);
+    })) {
+      applePosition = generateRandomCELL();
+    }
+
+    return applePosition;
+  };
+}();
+
+var apples$ = snake$.pipe((0, _operators.scan)(eat, false), (0, _operators.distinctUntilChanged)(), (0, _operators.share)());
 var appleEaten$ = apples$.pipe((0, _operators.skip)(1), (0, _operators.tap)(function () {
   return length$.next(1);
-})).subscribe(console.log); //scene$ -> game$
+})).subscribe(); //scene$ -> game$
+//-- dirty render
 
-var scene$ = (0, _rxjs.combineLatest)(snake$, apples$, function (score$) {
-  return {
-    snake: snake,
-    apples: apples,
-    score: score
+var renderScene = function () {
+  var renderSnake = function renderSnake(body) {
+    body.forEach(function (_ref7) {
+      var x = _ref7.x,
+          y = _ref7.y;
+      ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    });
   };
-});
+
+  var renderApple = function renderApple(_ref8) {
+    var x = _ref8.x,
+        y = _ref8.y;
+    ctx.save();
+    ctx.fillStyle = "red";
+    ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    ctx.restore();
+  };
+
+  var renderScore = function renderScore(score) {
+    ctx.fillText("score:".concat(score), COLS / 2 * CELL_SIZE, ROWS / 2 * CELL_SIZE);
+  };
+
+  return function (ctx, _ref9) {
+    var _ref10 = _slicedToArray(_ref9, 3),
+        snake = _ref10[0],
+        apple = _ref10[1],
+        score = _ref10[2];
+
+    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    renderSnake(snake, ctx);
+    renderApple(apple, ctx);
+    renderScore(score, ctx);
+  };
+}();
+
+function renderGameOver(ctx) {
+  ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  ctx.fillText("it's done", COLS / 2 * CELL_SIZE, ROWS / 2 * CELL_SIZE);
+}
+
+function isGameOver(_ref11) {
+  var _ref12 = _slicedToArray(_ref11, 3),
+      _ref12$ = _toArray(_ref12[0]),
+      head = _ref12$[0],
+      tail = _ref12$.slice(1),
+      applePosition = _ref12[1],
+      score = _ref12[2];
+
+  return tail.some(function (item) {
+    return eqCELL(item, head);
+  });
+}
+
+var scene$ = (0, _rxjs.combineLatest)(snake$, apples$, score$);
 var game$ = time$.pipe((0, _operators.withLatestFrom)(scene$, function (_, scene) {
   return scene;
-}), takeWhile(function (scene) {
+}), (0, _operators.takeWhile)(function (scene) {
   return !isGameOver(scene);
-})).subscribe({// next: scene => renderScene(ctx,scene),
-  // complete: () => renderGameOver(ctx)
+})).subscribe({
+  next: function next(scene) {
+    return renderScene(ctx, scene);
+  },
+  complete: function complete() {
+    return renderGameOver(ctx);
+  }
 });
 },{"rxjs":"../node_modules/rxjs/_esm5/index.js","rxjs/operators":"../node_modules/rxjs/_esm5/operators/index.js"}],"../node_modules/_parcel@1.11.0@parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -15155,7 +15299,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54878" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63372" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
